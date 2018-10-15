@@ -1,0 +1,1 @@
+<div id="notifications"><?php echo $this->session->flashdata('msg'); ?></div>  
