@@ -19,7 +19,7 @@
       <div id="notifications"></div>  
       
       <?php foreach($data as $item){ ?>
-      <form class="form-horizontal" method="post" action="<?php echo base_url('dataklinik/update/'.$item->id);?>" enctype="multipart/form-data">
+      <form class="form-horizontal" method="post" action="<?php echo base_url('dataklinik/update/'.$item->id_klinik);?>" enctype="multipart/form-data">
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">

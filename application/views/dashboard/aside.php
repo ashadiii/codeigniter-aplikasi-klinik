@@ -24,21 +24,12 @@
             <i class="fa fa-hospital-o"></i> <span>Data Klinik</span>
           </a>
         </li>
-        <li <?php if($this->uri->segment(1)=="datalahan"){echo 'class="active"';}?>>
-          <a href="<?php echo base_url('datalahan') ?>">
-            <i class="fa fa-database"></i> <span>Data Lahan</span>
+        <li <?php if($this->uri->segment(1)=="dataarrival"){echo 'class="active"';}?>>
+          <a href="<?php echo base_url('dataarrival') ?>">
+            <i class="fa fa-hospital-o"></i> <span>Data Arrival Estimated</span>
           </a>
         </li>
-        <li <?php if($this->uri->segment(1)=="log"){echo 'class="active"';}?>>
-          <a href="<?php echo base_url('log') ?>">
-            <i class="fa fa-user-circle-o"></i> <span>User Log</span>
-          </a>
-        </li>
-        <li <?php if($this->uri->segment(1)=="usersetting"){echo 'class="active"';}?>>
-          <a href="<?php echo base_url('') ?>usersetting/index/<?=$this->session->userdata('id')?>">
-            <i class="fa fa-cog"></i> <span>User Setting</span>
-          </a>
-        </li>
+        
         
       </ul>
     </section>

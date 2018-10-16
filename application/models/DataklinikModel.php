@@ -5,7 +5,7 @@ class DataklinikModel extends CI_Model{
 
 
     public function get_item(){
-        $this->db->order_by('id', 'DESC');
+        $this->db->order_by('id_klinik', 'DESC');
         $query = $this->db->get("data_klinik");
         return $query->result();
     }
@@ -31,9 +31,13 @@ class DataklinikModel extends CI_Model{
         if($id==0){
             return $this->db->insert('data_klinik',$data);
         }else{
-            $this->db->where('id',$id);
+            $this->db->where('id_klinik',$id);
             return $this->db->update('data_klinik',$data);
         }        
+    }
+    public function delete_item($id)
+    {
+        return $this->db->delete('data_klinik', array('id_klinik' => $id));
     }
 }
 ?>

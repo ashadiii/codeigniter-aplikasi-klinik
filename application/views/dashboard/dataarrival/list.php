@@ -22,7 +22,7 @@
           <div class="box">
             <div id="notifications"><?php echo $this->session->flashdata('msg'); ?></div>  
             <div class="box-add-lahan">
-              <a href="<?php echo base_url('dataklinik/create') ?>"><i class="fa fa-fw fa-plus"></i> <span>Tambah Data Klinik</span></a>
+              <a href="<?php echo base_url('dataarrival/create') ?>"><i class="fa fa-fw fa-plus"></i> <span>Tambah Data Arrival Estimated</span></a>
             </div>
             
             <!-- /.box-header -->
@@ -32,6 +32,11 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Klinik</th>
+                  <th>Delivery From</th>
+                  <th>Item</th>
+                  <th>Weight</th>
+                  <th>Qty</th>
+                  <th>Arrival Estimated</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -40,12 +45,17 @@
                 
                 <tr>
                   <td><?=$i; ?></td>
-                  <td><?=$item->nama_klinik; ?></td>   
+                  <td><?=$item->nama_klinik; ?></td>  
+                  <td><?=$item->delivery_from; ?></td> 
+                  <td><?=$item->item; ?></td> 
+                  <td><?=$item->weight; ?></td> 
+                  <td><?=$item->qty; ?></td> 
+                  <td><?=$item->tgl_arrival; ?></td> 
                   <td>
                     <div class="btn-group">
-                      <a type="button" href="<?php echo base_url('dataklinik/edit/'.$item->id_klinik) ?>" class="btn btn-default" title="Edit"><i class="fa fa-edit"></i></a>
-                      <a type="button" data-toggle="modal" data-target="#modal-default<?=$item->id_klinik; ?>" class="btn btn-default" title="Delete"><i class="fa fa-trash"></i></a>
-                      <div class="modal fade" id="modal-default<?=$item->id_klinik; ?>">
+                      <a type="button" href="<?php echo base_url('dataarrival/edit/'.$item->id_arrival) ?>" class="btn btn-default" title="Edit"><i class="fa fa-edit"></i></a>
+                      <a type="button" data-toggle="modal" data-target="#modal-default<?=$item->id_arrival; ?>" class="btn btn-default" title="Delete"><i class="fa fa-trash"></i></a>
+                      <div class="modal fade" id="modal-default<?=$item->id_arrival; ?>">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -54,11 +64,11 @@
                               <h4 class="modal-title">Konfirmasi</h4>
                             </div>
                             <div class="modal-body">
-                              <p>Apa anda yakin ingin menghapus Klinik : <?=$item->nama_klinik; ?> ?</p>
+                              <p>Apa anda yakin ingin menghapus ?</p>
                             </div>
                             <div class="modal-footer">
                               <a type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</a>
-                              <a href="<?php echo base_url('dataklinik/delete/'.$item->id_klinik) ?>" type="button" class="btn btn-primary">Hapus</a>
+                              <a href="<?php echo base_url('dataarrival/delete/'.$item->id_arrival) ?>" type="button" class="btn btn-primary">Hapus</a>
                             </div>
                           </div>
                           <!-- /.modal-content -->
@@ -73,8 +83,13 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>ID</th>
+                  <th>No</th>
                   <th>Nama Klinik</th>
+                  <th>Delivery From</th>
+                  <th>Item</th>
+                  <th>Weight</th>
+                  <th>Qty</th>
+                  <th>Arrival Estimated</th>
                   <th>Action</th>
                 </tr>
                 </tfoot>
