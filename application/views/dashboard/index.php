@@ -34,7 +34,7 @@
                 <tbody>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Name</th>
+                    <th>Nama Klinik</th>
                     <th>Action</th>
                   </tr>
                   <?php $i = 1; foreach ($data as $item):?>

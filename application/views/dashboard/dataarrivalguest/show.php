@@ -32,7 +32,7 @@
                 <tbody>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Name</th>
+                    <th>Nama Klinik</th>
                     <th>Delivery From</th>
                     <th>Item</th>
                     <th>Weight</th>
