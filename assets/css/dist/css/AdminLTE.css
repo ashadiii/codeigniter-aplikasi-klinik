@@ -5113,7 +5113,7 @@ table.text-center th {
 .main-header-custom .logo-custom
 {
       position: absolute;
-    left: 15px;
+    left: 50px;
     top: 10px;
     z-index: 9999;
     color: #fff;
