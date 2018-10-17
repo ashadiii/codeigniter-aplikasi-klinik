@@ -3,6 +3,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
+      <?php if ($this->session->userdata("nama")): ?>
       <div class="user-panel user-panel-custom">
         <div class="pull-left image">
           <img src="<?=empty($this->session->userdata('image')) ? ''.base_url().'assets/img/user2-160x160.jpg' : ''.base_url().'assets/img/'.$this->session->userdata('image').'' ?>" class="img-circle" alt="User Image">
@@ -12,6 +13,7 @@
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
+      <?php endif; ?>
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li <?php if($this->uri->segment(1)=="" || $this->uri->segment(1)=="dashboard"){echo 'class="active"';}?>>
@@ -19,6 +21,7 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
+        <?php if ($this->session->userdata("nama")): ?>
         <li <?php if($this->uri->segment(1)=="dataklinik"){echo 'class="active"';}?>>
           <a href="<?php echo base_url('dataklinik') ?>">
             <i class="fa fa-hospital-o"></i> <span>Data Klinik</span>
@@ -29,8 +32,7 @@
             <i class="fa fa-hospital-o"></i> <span>Data Arrival Estimated</span>
           </a>
         </li>
-        
-        
+        <?php endif; ?>
       </ul>
     </section>
     <!-- /.sidebar -->

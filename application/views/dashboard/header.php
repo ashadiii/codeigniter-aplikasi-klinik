@@ -118,10 +118,12 @@
           
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
+            <?php if ($this->session->userdata("nama")): ?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?=empty($this->session->userdata('image')) ? ''.base_url().'assets/img/user2-160x160.jpg' : ''.base_url().'assets/img/'.$this->session->userdata('image').'' ?>" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $this->session->userdata("nama"); ?></span>
             </a>
+
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
@@ -137,13 +139,14 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="<?php echo base_url('') ?>usersetting/index/<?=$this->session->userdata('id')?>" class="btn btn-default btn-flat">Profile</a>
+                  
                 </div>
                 <div class="pull-right">
                   <a href="<?=base_url('login/logout');?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
+            <?php endif; ?>
           </li>
           
         </ul>

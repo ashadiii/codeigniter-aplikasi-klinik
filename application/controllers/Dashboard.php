@@ -9,10 +9,8 @@ class Dashboard extends CI_Controller {
    */
    public function __construct() {
       parent::__construct(); 
-      if($this->session->userdata('status') != "login"){
-        redirect(base_url("login"));
-      }
-      //$this->load->model('DashboardModel');
+      
+      $this->load->model('DataklinikModel');
 
    }
 
@@ -27,11 +25,10 @@ class Dashboard extends CI_Controller {
        $data['page'] = 'dashboard';
        $data['title'] = 'Dashboard';
        
-       //$data['data'] = $this->ItemModel->get_item();
+       $data['data'] = $this->DataklinikModel->get_item();
        $this->load->view('dashboard/header', $data); 
        $this->load->view('dashboard/aside');    
        $this->load->view('dashboard/index');       
-       //$this->load->view('item/list',$data);
        $this->load->view('dashboard/footer');
    }
 }
