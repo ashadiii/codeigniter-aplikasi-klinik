@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Dataarrival extends CI_Controller {
+class Dataunit extends CI_Controller {
 
    /**
     * Get All Data from this method.
@@ -15,7 +15,7 @@ class Dataarrival extends CI_Controller {
       }
       $this->load->library('form_validation');
       $this->load->library('session');
-      $this->load->model('DataarrivalModel');
+      $this->load->model('DataunitModel');
 
    }
 
@@ -27,14 +27,14 @@ class Dataarrival extends CI_Controller {
    */
    public function index()
    {
-       $data['data'] = $this->DataarrivalModel->get_item();
+       $data['data'] = $this->DataunitModel->get_item();
        $data['page'] = 'list';
-       $data['title'] = 'Data Arrival Estimated';
+       $data['title'] = 'Data Unit';
 
 
        $this->load->view('dashboard/header', $data); 
        $this->load->view('dashboard/aside');       
-       $this->load->view('dashboard/dataarrival/list');
+       $this->load->view('dashboard/dataunit/list');
        $this->load->view('dashboard/footer');
    }
 
@@ -45,16 +45,13 @@ class Dataarrival extends CI_Controller {
    */
    public function create()
    {
-      $data['dataklinik'] = $this->DataarrivalModel->get_dataklinik();
-      $data['datadelivery'] = $this->DataarrivalModel->get_datadelivery();
-      $data['dataunit'] = $this->DataarrivalModel->get_dataunit();
       $data['page'] = 'create';
-      $data['title'] = 'Tambah Data Arrival Estimated';
+      $data['title'] = 'Tambah Data Unit';
 
 
       $this->load->view('dashboard/header', $data); 
       $this->load->view('dashboard/aside');       
-      $this->load->view('dashboard/dataarrival/create');
+      $this->load->view('dashboard/dataunit/create');
       $this->load->view('dashboard/footer');   
    }
 
@@ -65,25 +62,13 @@ class Dataarrival extends CI_Controller {
    */
    public function store()
    {
-        $item = $this->input->post('item');
-        if(!empty($item))
-        {
-          foreach($item as $id => $value)
-          {
-            $this->form_validation->set_rules('item['.$id.']', 'Item', 'required');
-            $this->form_validation->set_rules('unit['.$id.']', 'Unit', 'required');
-            $this->form_validation->set_rules('qty['.$id.']', 'Qty', 'required');
-          }
-        }
-        $this->form_validation->set_rules('id_klinik', 'Nama Klinik', 'required');
-        $this->form_validation->set_rules('delivery_from', 'Delivery From', 'required');
-        $this->form_validation->set_rules('date_arrival', 'Arrival Estimated', 'required');
+        $this->form_validation->set_rules('unit', 'Data Unit', 'required');
 
         if ($this->form_validation->run() == FALSE){
             $this->session->set_flashdata('errors', validation_errors());
-            redirect(base_url('dataarrival/create'));
+            redirect(base_url('dataunit/create'));
         }else{
-           $this->DataarrivalModel->insert_item();
+           $this->DataunitModel->insert_item();
            $this->session->set_flashdata('msg', 
             '<div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -91,7 +76,7 @@ class Dataarrival extends CI_Controller {
                 Data Berhasil Di Input.
               </div>'); 
            helper_log("add", "Melakukan Input Data Lahan"); 
-           redirect(base_url('dataarrival'));
+           redirect(base_url('dataunit'));
         }
     }
 
@@ -102,16 +87,13 @@ class Dataarrival extends CI_Controller {
      */
      public function edit($id)
      {
-       $where = array('id_arrival' => $id);
-       $data['data'] = $this->DataarrivalModel->find_item($where)->result();
-       $data['dataklinik'] = $this->DataarrivalModel->get_dataklinik();
-       $data['datadelivery'] = $this->DataarrivalModel->get_datadelivery();
-       $data['dataunit'] = $this->DataarrivalModel->get_dataunit();
+       $where = array('id_unit' => $id);
+       $data['data'] = $this->DataunitModel->find_item($where)->result();
        $data['page'] = 'edit';
-       $data['title'] = 'Edit Data Arrival Estimated';
+       $data['title'] = 'Edit Data Unit';
        $this->load->view('dashboard/header', $data); 
        $this->load->view('dashboard/aside');   
-       $this->load->view('dashboard/dataarrival/edit');
+       $this->load->view('dashboard/dataunit/edit');
        $this->load->view('dashboard/footer');  
      }
 
@@ -122,18 +104,13 @@ class Dataarrival extends CI_Controller {
      */
      public function update($id)
      {
-          $this->form_validation->set_rules('id_klinik', 'Nama Klinik', 'required');
-          $this->form_validation->set_rules('delivery_from', 'Delivery From', 'required');
-          $this->form_validation->set_rules('item', 'Item', 'required');
-          $this->form_validation->set_rules('unit', 'Unit', 'required');
-          $this->form_validation->set_rules('qty', 'Qty', 'required');
-          $this->form_validation->set_rules('date_arrival', 'Arrival Estimated', 'required');
+          $this->form_validation->set_rules('unit', 'Data Unit', 'required');
 
           if ($this->form_validation->run() == FALSE){
               $this->session->set_flashdata('errors', validation_errors());
-              redirect(base_url('dataarrival/edit/'.$id));
+              redirect(base_url('dataunit/edit/'.$id));
           }else{ 
-            $this->DataarrivalModel->update_item($id);
+            $this->DataunitModel->update_item($id);
             $this->session->set_flashdata('msg', 
               '<div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -141,7 +118,7 @@ class Dataarrival extends CI_Controller {
                   Data ID : '.$id.' Berhasil Di Edit.
                 </div>'); 
             helper_log("edit", "Melakukan Edit Data Lahan ID : ".$id.""); 
-            redirect(base_url('dataarrival'));
+            redirect(base_url('dataunit'));
           }
      }
 
@@ -152,7 +129,7 @@ class Dataarrival extends CI_Controller {
      */
      public function delete($id)
      {
-         $item = $this->DataarrivalModel->delete_item($id);
+         $item = $this->DataunitModel->delete_item($id);
          $this->session->set_flashdata('msg', 
               '<div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -160,17 +137,6 @@ class Dataarrival extends CI_Controller {
                   Data ID : '.$id.' Berhasil Di Hapus.
                 </div>'); 
          helper_log("delete", "Melakukan Delete Data Lahan ID : ".$id.""); 
-         redirect(base_url('dataarrival'));
-     }
-
-     /**
-      * Edit Data from this method.
-      *
-      * @return Response
-     */
-     public function getunit()
-     {
-       $data['dataunit'] = $this->DataarrivalModel->get_dataunit();
-       $this->load->view('dashboard/dataunit/getunit', $data);
+         redirect(base_url('dataunit'));
      }
 }

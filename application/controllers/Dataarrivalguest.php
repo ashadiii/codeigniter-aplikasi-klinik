@@ -23,7 +23,8 @@ class Dataarrivalguest extends CI_Controller {
    public function show($id)
    {
       $data['data'] = $this->DataarrivalguestModel->find_item($id);
-      $data['title'] = 'Data Arrival Estimated Klinik';
+      $data['title'] = 'Data Estimasi Kedatangan FG EAP';
+      $data['klinik'] = $this->DataarrivalguestModel->find_klinik($id);
 
       $this->load->view('dashboard/header', $data); 
       $this->load->view('dashboard/aside');       

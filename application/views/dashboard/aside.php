@@ -18,7 +18,7 @@
         <li class="header">MAIN NAVIGATION</li>
         <li <?php if($this->uri->segment(1)=="" || $this->uri->segment(1)=="dashboard"){echo 'class="active"';}?>>
           <a href="<?php echo base_url() ?>">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <i class="fa fa-home"></i> <span>Dashboard</span>
           </a>
         </li>
         <?php if ($this->session->userdata("nama")): ?>
@@ -27,9 +27,19 @@
             <i class="fa fa-hospital-o"></i> <span>Data Klinik</span>
           </a>
         </li>
+        <li <?php if($this->uri->segment(1)=="datadeliveryfrom"){echo 'class="active"';}?>>
+          <a href="<?php echo base_url('datadeliveryfrom') ?>">
+            <i class="fa fa-ship"></i> <span>Data Delivery From</span>
+          </a>
+        </li>
+        <li <?php if($this->uri->segment(1)=="dataunit"){echo 'class="active"';}?>>
+          <a href="<?php echo base_url('dataunit') ?>">
+            <i class="fa fa-empire"></i> <span>Data Unit</span>
+          </a>
+        </li>
         <li <?php if($this->uri->segment(1)=="dataarrival"){echo 'class="active"';}?>>
           <a href="<?php echo base_url('dataarrival') ?>">
-            <i class="fa fa-hospital-o"></i> <span>Data Arrival Estimated</span>
+            <i class="fa fa-calendar-plus-o"></i> <span>Estimasi Kedatangan FG EAP</span>
           </a>
         </li>
         <?php endif; ?>

@@ -96,7 +96,7 @@
   <header class="main-header main-header-custom">
 
     <a href="<?php echo base_url('') ?>" class="logo-custom">
-      Aplikasi Estimasi
+      EAP Delivery
     </a>
     <!-- Logo -->
     <!-- <a href="<?php echo base_url('') ?>" class="logo">

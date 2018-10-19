@@ -5209,3 +5209,7 @@ table.text-center th {
   text-align: center;
   margin-bottom: 20px;
 }
+.item_multiple > ul > li:last-child
+{
+  display: none;
+}

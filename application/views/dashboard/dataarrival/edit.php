@@ -48,7 +48,11 @@
               <div class="form-group">
                 <label for="delivery_from">Delivery From</label>
                 <div class="form-group1">
-                <input type="text"  name="delivery_from" class="form-control" id="delivery_from" placeholder="Delivery From" value="<?=$item->delivery_from; ?>">
+                  <select name="delivery_from" id="delivery_from" class="form-control">
+                    <?php foreach ($datadelivery as $delivery): ?>
+                    <option value="<?=$delivery->id_delivery; ?>" <?=($item->id_delivery == $delivery->id_delivery) ? 'selected' : ''?>><?=$delivery->nama_delivery; ?></option>
+                    <?php endforeach;?>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
@@ -58,9 +62,13 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="weight">Weight</label>
+                <label for="unit">Unit</label>
                 <div class="form-group1">
-                <input type="text"  name="weight" class="form-control" id="weight" placeholder="Weight" value="<?=$item->weight; ?>">
+                  <select name="unit" id="unit" class="form-control">
+                    <?php foreach ($dataunit as $unit): ?>
+                    <option value="<?=$unit->id_unit; ?>" <?=($item->id_unit == $unit->id_unit) ? 'selected' : ''?>><?=$unit->nama_unit; ?></option>
+                    <?php endforeach;?>
+                  </select>
                 </div>
               </div>
               <div class="form-group">

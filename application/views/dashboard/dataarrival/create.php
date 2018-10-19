@@ -38,7 +38,7 @@
               <div class="form-group">
                 <label for="nama_klinik">Nama Klinik</label>
                 <div class="form-group1">
-                  <select name="id_klinik" id="nama_klinik" class="form-control">
+                  <select name="id_klinik" id="nama_klinik" class="form-control" required>
                     <?php foreach ($dataklinik as $klinik): ?>
                     <option value="<?=$klinik->id_klinik; ?>"><?=$klinik->nama_klinik; ?></option>
                     <?php endforeach;?>
@@ -48,25 +48,11 @@
               <div class="form-group">
                 <label for="delivery_from">Delivery From</label>
                 <div class="form-group1">
-                <input type="text"  name="delivery_from" class="form-control" id="delivery_from" placeholder="Delivery From">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="item">Item</label>
-                <div class="form-group1">
-                <input type="text"  name="item" class="form-control" id="item" placeholder="Item">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="weight">Weight</label>
-                <div class="form-group1">
-                <input type="text"  name="weight" class="form-control" id="weight" placeholder="Weight">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="qty">Qty</label>
-                <div class="form-group1">
-                <input type="text"  name="qty" class="form-control" id="qty" placeholder="Qty">
+                  <select name="delivery_from" id="delivery_from" class="form-control" required>
+                    <?php foreach ($datadelivery as $delivery): ?>
+                    <option value="<?=$delivery->id_delivery; ?>"><?=$delivery->nama_delivery; ?></option>
+                    <?php endforeach;?>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
@@ -75,12 +61,40 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="date_arrival" class="form-control pull-right" id="date_arrival" placeholder="Arrival Estimated">
+                  <input type="text" name="date_arrival" class="form-control pull-right" id="date_arrival" placeholder="Arrival Estimated" required>
                 </div>
               </div>
-              
+              <div>
+                <div class="form-group"><h4>Item 1</h4></div>
+                <div class="form-group">
+                  <label for="item">Item</label>
+                  <div class="form-group1">
+                  <input type="text"  name="item[0]" class="form-control" id="item" placeholder="Item" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="unit">Unit</label>
+                  <div class="form-group1">
+                    <select name="unit[0]" id="unit" class="form-control" required>
+                      <?php foreach ($dataunit as $unit): ?>
+                      <option value="<?=$unit->nama_unit; ?>"><?=$unit->nama_unit; ?></option>
+                      <?php endforeach;?>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="qty">Qty</label>
+                  <div class="form-group1">
+                  <input type="text"  name="qty[0]" class="form-control" id="qty" placeholder="Qty" required>
+                  </div>
+                </div>
+              </div>
+              <div id="loading" style="display: none;">loading</div>
+              <div id="addItem"></div>
+
               <div class="form-group">
                 <button type="submit" name="submit" class="btn btn-info">Save</button>
+                <button type="button" onclick="bttn_adding()" class="btn btn-info"><i class="ti-plus"></i> Tambah Item</button>
               </div>
             </div>            
                             
@@ -105,5 +119,35 @@
         autoclose: true,
         format: 'dd MM, yyyy'
       });
+      
     });
+    function bttn_remove() {
+        var scntDiv = $('#addItem');
+        var last = $('#addItem .toclone').length;  
+        $('#addItem #field_'+last+'').remove();
+        
+        return false;
+      }
+      function bttn_adding() {
+        
+
+        $.ajax({
+          url: "<?php echo base_url('dataarrival/getunit');?>",
+          beforeFilter: function(){
+            $('#loading').show();
+          },
+          success: function(html){
+            var scntDiv = $('#addItem'); 
+            var i = 1 + $('#addItem .toclone').length;   
+            var itemNo = i + 1;
+            $('#loading').hide();
+            $('<div id="field_'+i+'" class="toclone"><div class="form-group"><h4>Item '+itemNo+'</h4></div><div class="form-group"><label for="item">Item</label><div class="form-group1"><input type="text"  name="item['+i+']" class="form-control" id="item" placeholder="Item" required></div></div><div class="form-group"><label for="unit">Unit</label><div class="form-group1"><select name="unit['+i+']" id="unit" class="form-control" required>'+html+'</select></div></div><div class="form-group"><label for="qty">Qty</label><div class="form-group1"><input type="text"  name="qty['+i+']" class="form-control" id="qty" placeholder="Qty" required></div></div><div class="form-group"><button type="button" onclick="bttn_remove()" class="btn btn-danger"><i class="ti-minus"></i> Remove Item</button></div></div>').appendTo(scntDiv); 
+            i++;
+          }
+        });
+
+        
+        
+        return false;
+      }
 </script>
