@@ -77,7 +77,7 @@
                   <div class="form-group1">
                     <select name="unit[0]" id="unit" class="form-control" required>
                       <?php foreach ($dataunit as $unit): ?>
-                      <option value="<?=$unit->nama_unit; ?>"><?=$unit->nama_unit; ?></option>
+                      <option value="<?=$unit->id_unit; ?>"><?=$unit->nama_unit; ?></option>
                       <?php endforeach;?>
                     </select>
                   </div>

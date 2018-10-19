@@ -56,6 +56,15 @@
                 </div>
               </div>
               <div class="form-group">
+                <label for="date_arrival">Arrival Estimated</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="date_arrival" class="form-control pull-right" id="date_arrival" placeholder="Arrival Estimated" value="<?=$item->tgl_arrival; ?>">
+                </div>
+              </div>
+              <div class="form-group">
                 <label for="item">Item</label>
                 <div class="form-group1">
                 <input type="text"  name="item" class="form-control" id="item" placeholder="Item" value="<?=$item->item; ?>">
@@ -64,26 +73,18 @@
               <div class="form-group">
                 <label for="unit">Unit</label>
                 <div class="form-group1">
-                  <select name="unit" id="unit" class="form-control">
+                  <!-- <select name="unit" id="unit" class="form-control">
                     <?php foreach ($dataunit as $unit): ?>
                     <option value="<?=$unit->id_unit; ?>" <?=($item->id_unit == $unit->id_unit) ? 'selected' : ''?>><?=$unit->nama_unit; ?></option>
                     <?php endforeach;?>
-                  </select>
+                  </select> -->
+                  <input type="text"  name="unit" class="form-control" id="unit" placeholder="Unit" value="<?=$item->unit; ?>">
                 </div>
               </div>
               <div class="form-group">
                 <label for="qty">Qty</label>
                 <div class="form-group1">
                 <input type="text"  name="qty" class="form-control" id="qty" placeholder="Qty" value="<?=$item->qty; ?>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="date_arrival">Arrival Estimated</label>
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" name="date_arrival" class="form-control pull-right" id="date_arrival" placeholder="Arrival Estimated" value="<?=$item->tgl_arrival; ?>">
                 </div>
               </div>
               

@@ -5,7 +5,7 @@ class DataklinikModel extends CI_Model{
 
 
     public function get_item(){
-        $this->db->order_by('id_klinik', 'DESC');
+        $this->db->order_by('id_klinik', 'ASC');
         $query = $this->db->get("data_klinik");
         return $query->result();
     }

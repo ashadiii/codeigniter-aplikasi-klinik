@@ -9,34 +9,17 @@ class DataarrivalModel extends CI_Model{
         $this->db->from('data_arrival a');
         $this->db->join('data_klinik b','b.id_klinik=a.id_klinik', 'left');
         $this->db->join('data_delivery c','c.id_delivery=a.id_delivery', 'left');
+        // $this->db->join('data_arrival_detail d','d.id_arrival=a.id_arrival', 'left');
+        // $this->db->join('data_unit e','e.id_unit=d.id_unit', 'right');
         $this->db->order_by('id_arrival', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
 
-    public function insert_item()
+    public function insert_item($table,$data)
     {   
-        $item = $this->input->post('item');
-        if(!empty($item))
-        {
-            foreach($item as $id => $value)
-            {
-                $returnItem .= ''.$this->input->post('item['.$id.']').',';
-                $returnUnit .= ''.$this->input->post('unit['.$id.']').',';
-                $returnQty .= ''.$this->input->post('qty['.$id.']').',';
-            }
-            
-        }
-
-        $data = array(
-            'id_klinik' => $this->input->post('id_klinik'),
-            'id_delivery' => $this->input->post('delivery_from'),
-            'unit' => $returnUnit,
-            'item' => $returnItem,
-            'qty' => $returnQty,
-            'tgl_arrival' => $this->input->post('date_arrival')
-        );
-        return $this->db->insert('data_arrival', $data);
+        $query = $this->db->insert($table, $data);
+        return $this->db->insert_id();
     }
     
     public function find_item($id)

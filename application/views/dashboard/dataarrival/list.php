@@ -47,53 +47,14 @@
                   <td><?=$i; ?></td>
                   <td><?=$item->nama_klinik; ?></td>  
                   <td><?=$item->nama_delivery; ?></td> 
-                  <td class="item_multiple">
-                    <?php 
-                      $linesItem = explode(",", $item->item);
-                      if ( !empty($linesItem) && (count($linesItem) > 2)  ) {
-                        echo '<ul style="padding-left: 15px;">';
-                        foreach ( $linesItem as $lineItem ) {
-                          echo '<li>'. trim( $lineItem ) .'</li>';
-                        }
-                        echo '</ul>';
-                      }
-                      else
-                      {
-                        echo $item->item;
-                      }
-                    ?>
+                  <td>
+
                   </td> 
-                  <td class="item_multiple">
-                    <?php 
-                      $linesUnit = explode(",", $item->unit);
-                      if ( !empty($linesUnit) && (count($linesUnit) > 2) ) {
-                        echo '<ul style="padding-left: 15px;">';
-                        foreach ( $linesUnit as $lineUnit ) {
-                          echo '<li>'. trim( $lineUnit ) .'</li>';
-                        }
-                        echo '</ul>';
-                      }
-                      else
-                      {
-                        echo $item->unit;
-                      }
-                    ?>
+                  <td>
+                    
                   </td>
-                  <td class="item_multiple">
-                    <?php 
-                      $linesQty = explode(",", $item->qty);
-                      if ( !empty($linesQty) && (count($linesQty) > 2) ) {
-                        echo '<ul style="padding-left: 15px;">';
-                        foreach ( $linesQty as $lineQty ) {
-                          echo '<li>'. trim( $lineQty ) .'</li>';
-                        }
-                        echo '</ul>';
-                      }
-                      else
-                      {
-                        echo $item->qty;
-                      }
-                    ?>
+                  <td>
+                    
                   </td> 
                   <td><?=$item->tgl_arrival; ?></td> 
                   <td>

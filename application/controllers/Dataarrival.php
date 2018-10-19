@@ -83,7 +83,28 @@ class Dataarrival extends CI_Controller {
             $this->session->set_flashdata('errors', validation_errors());
             redirect(base_url('dataarrival/create'));
         }else{
-           $this->DataarrivalModel->insert_item();
+          $data = array(
+            'id_klinik' => $this->input->post('id_klinik'),
+            'id_delivery' => $this->input->post('delivery_from'),
+            'tgl_arrival' => $this->input->post('date_arrival')
+          );
+          $id_arrival = $this->DataarrivalModel->insert_item('data_arrival',$data);
+
+          if(!empty($item))
+          {
+            foreach($item as $id => $value)
+            {
+              $dataDetail[$id] = array(
+                'id_arrival' => $id_arrival,
+                'item' => $this->input->post('item['.$id.']'),
+                'id_unit' => $this->input->post('unit['.$id.']'),
+                'qty' => $this->input->post('qty['.$id.']')
+              );
+              $arrivalDetail[$id] = $this->DataarrivalModel->insert_item('data_arrival_detail',$dataDetail[$id]);
+            }
+          }
+          
+
            $this->session->set_flashdata('msg', 
             '<div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
