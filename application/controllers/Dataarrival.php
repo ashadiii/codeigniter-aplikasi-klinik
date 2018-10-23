@@ -27,9 +27,19 @@ class Dataarrival extends CI_Controller {
    */
    public function index()
    {
-       $data['data'] = $this->DataarrivalModel->get_item();
-       $data['page'] = 'list';
-       $data['title'] = 'Data Arrival Estimated';
+      // $data['data'] = $this->DataarrivalModel->get_item();
+      $data['page'] = 'list';
+      $data['title'] = 'Data Arrival Estimated';
+
+      $dataarrival_array = array();
+      $dataarrival = $this->DataarrivalModel->get_item();
+      foreach($dataarrival as $row){
+        $dataarrival_array[] = array(
+        'parent_array' => $row,
+        'child_array' =>$this->DataarrivalModel->get_itemdetail($row->id_arrival)
+        );
+      }
+      $data['dataarrival_array'] = $dataarrival_array;
 
 
        $this->load->view('dashboard/header', $data); 
@@ -121,20 +131,29 @@ class Dataarrival extends CI_Controller {
       *
       * @return Response
      */
-     public function edit($id)
-     {
-       $where = array('id_arrival' => $id);
-       $data['data'] = $this->DataarrivalModel->find_item($where)->result();
-       $data['dataklinik'] = $this->DataarrivalModel->get_dataklinik();
-       $data['datadelivery'] = $this->DataarrivalModel->get_datadelivery();
-       $data['dataunit'] = $this->DataarrivalModel->get_dataunit();
-       $data['page'] = 'edit';
-       $data['title'] = 'Edit Data Arrival Estimated';
-       $this->load->view('dashboard/header', $data); 
-       $this->load->view('dashboard/aside');   
-       $this->load->view('dashboard/dataarrival/edit');
-       $this->load->view('dashboard/footer');  
-     }
+    public function edit($id)
+    {
+      $where = array('id_arrival' => $id);
+      $dataarrival = $this->DataarrivalModel->find_item($where)->result();
+      $dataarrival_array = array();
+      foreach($dataarrival as $row){
+        $dataarrival_array[] = array(
+          'parent_array' => $row,
+          'child_array' =>$this->DataarrivalModel->get_itemdetail($row->id_arrival)
+        );
+      }
+      $data['dataarrival_array'] = $dataarrival_array;
+
+      $data['dataklinik'] = $this->DataarrivalModel->get_dataklinik();
+      $data['datadelivery'] = $this->DataarrivalModel->get_datadelivery();
+      $data['dataunit'] = $this->DataarrivalModel->get_dataunit();
+      $data['page'] = 'edit';
+      $data['title'] = 'Edit Data Arrival Estimated';
+      $this->load->view('dashboard/header', $data); 
+      $this->load->view('dashboard/aside');   
+      $this->load->view('dashboard/dataarrival/edit');
+      $this->load->view('dashboard/footer');  
+    }
 
      /**
       * Update Data from this method.

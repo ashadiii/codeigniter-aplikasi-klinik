@@ -22,9 +22,19 @@ class Dataarrivalguest extends CI_Controller {
    */
    public function show($id)
    {
-      $data['data'] = $this->DataarrivalguestModel->find_item($id);
+      $dataarrival_array = array();      
       $data['title'] = 'Data Estimasi Kedatangan FG EAP';
       $data['klinik'] = $this->DataarrivalguestModel->find_klinik($id);
+
+      $dataarrival = $this->DataarrivalguestModel->find_item($id);
+      foreach($dataarrival as $row){
+        $dataarrival_array[] = array(
+        'parent_array' => $row,
+        'child_array' =>$this->DataarrivalguestModel->find_itemdetails($row->id_arrival)
+        );
+      }
+      $data['dataarrival_array'] = $dataarrival_array;
+
 
       $this->load->view('dashboard/header', $data); 
       $this->load->view('dashboard/aside');       

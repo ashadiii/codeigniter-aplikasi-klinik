@@ -46,61 +46,34 @@
                     <th>Qty</th>
                     <th>Date</th>
                   </tr>
-                  <?php $i = 1; foreach ($data as $item):?>
+                  <?php $i = 1; foreach ($dataarrival_array as $dataarrival):?>
                   <tr>
                     <td><?=$i++; ?>.</td>
                     <!-- <td><?=$item->nama_klinik; ?></td> -->
-                    <td><?=$item->nama_delivery; ?></td>
-                    <td class="item_multiple">
-                      <?php 
-                        $linesItem = explode(",", $item->item);
-                        if ( !empty($linesItem) && (count($linesItem) > 2)  ) {
-                          echo '<ul style="padding-left: 15px;">';
-                          foreach ( $linesItem as $lineItem ) {
-                            echo '<li>'. trim( $lineItem ) .'</li>';
-                          }
-                          echo '</ul>';
-                        }
-                        else
-                        {
-                          echo $item->item;
-                        }
-                      ?>
+                    <td><?=$dataarrival['parent_array']->nama_delivery; ?></td>
+                    <td>
+                      <ul style="padding: 0 0 0 20px;">
+                      <?php foreach ($dataarrival['child_array'] as $dataarrivalchild):?>
+                        <li><?=$dataarrivalchild->item; ?></li>
+                      <?php endforeach;?>
+                      </ul>
                     </td> 
                     
-                    <td class="item_multiple">
-                      <?php 
-                        $linesUnit = explode(",", $item->unit);
-                        if ( !empty($linesUnit) && (count($linesUnit) > 2) ) {
-                          echo '<ul style="padding-left: 15px;">';
-                          foreach ( $linesUnit as $lineUnit ) {
-                            echo '<li>'. trim( $lineUnit ) .'</li>';
-                          }
-                          echo '</ul>';
-                        }
-                        else
-                        {
-                          echo $item->unit;
-                        }
-                      ?>
+                    <td>
+                      <ul style="padding: 0 0 0 20px;">
+                      <?php foreach ($dataarrival['child_array'] as $dataarrivalchild):?>
+                        <li><?=$dataarrivalchild->nama_unit; ?></li>
+                      <?php endforeach;?>
+                      </ul>
                     </td>
-                    <td class="item_multiple">
-                      <?php 
-                        $linesQty = explode(",", $item->qty);
-                        if ( !empty($linesQty) && (count($linesQty) > 2) ) {
-                          echo '<ul style="padding-left: 15px;">';
-                          foreach ( $linesQty as $lineQty ) {
-                            echo '<li>'. trim( $lineQty ) .'</li>';
-                          }
-                          echo '</ul>';
-                        }
-                        else
-                        {
-                          echo $item->qty;
-                        }
-                      ?>
+                    <td>
+                      <ul style="padding: 0 0 0 20px;">
+                      <?php foreach ($dataarrival['child_array'] as $dataarrivalchild):?>
+                        <li><?=$dataarrivalchild->qty; ?></li>
+                      <?php endforeach;?>
+                      </ul>
                     </td> 
-                    <td><?=$item->tgl_arrival; ?></td>
+                    <td><?=$dataarrival['parent_array']->tgl_arrival; ?></td>
                   </tr>
                   <?php endforeach;?>
                 </tbody>

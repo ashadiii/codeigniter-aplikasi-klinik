@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title><?=$title?> | Aplikasi Erha Klinik</title>
+  <title><?=$title?> | Aplikasi EAP Delivery</title>
   
 
   <link rel="shortcut icon" href="<?=base_url();?>assets/favicon.ico" type="image/x-icon">

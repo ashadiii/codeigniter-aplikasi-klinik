@@ -18,8 +18,8 @@
     <div class="col-md-12">
       <div id="notifications"></div>  
       
-      <?php foreach($data as $item){ ?>
-      <form class="form-horizontal" method="post" action="<?php echo base_url('dataarrival/update/'.$item->id_arrival);?>" enctype="multipart/form-data">
+      <?php foreach($dataarrival_array as $dataarrival){ ?>
+      <form class="form-horizontal" method="post" action="<?php echo base_url('dataarrival/update/'.$dataarrival['parent_array']->id_arrival);?>" enctype="multipart/form-data">
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
@@ -40,7 +40,7 @@
                 <div class="form-group1">
                   <select name="id_klinik" id="nama_klinik" class="form-control">
                     <?php foreach ($dataklinik as $klinik): ?>
-                    <option value="<?=$klinik->id_klinik; ?>" <?=($item->id_klinik == $klinik->id_klinik) ? 'selected' : ''?>><?=$klinik->nama_klinik; ?></option>
+                    <option value="<?=$klinik->id_klinik; ?>" <?=($dataarrival['parent_array']->id_klinik == $klinik->id_klinik) ? 'selected' : ''?>><?=$klinik->nama_klinik; ?></option>
                     <?php endforeach;?>
                   </select>
                 </div>
@@ -50,7 +50,7 @@
                 <div class="form-group1">
                   <select name="delivery_from" id="delivery_from" class="form-control">
                     <?php foreach ($datadelivery as $delivery): ?>
-                    <option value="<?=$delivery->id_delivery; ?>" <?=($item->id_delivery == $delivery->id_delivery) ? 'selected' : ''?>><?=$delivery->nama_delivery; ?></option>
+                    <option value="<?=$delivery->id_delivery; ?>" <?=($dataarrival['parent_array']->id_delivery == $delivery->id_delivery) ? 'selected' : ''?>><?=$delivery->nama_delivery; ?></option>
                     <?php endforeach;?>
                   </select>
                 </div>
@@ -61,7 +61,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="date_arrival" class="form-control pull-right" id="date_arrival" placeholder="Arrival Estimated" value="<?=$item->tgl_arrival; ?>">
+                  <input type="text" name="date_arrival" class="form-control pull-right" id="date_arrival" placeholder="Arrival Estimated" value="<?=$dataarrival['parent_array']->tgl_arrival; ?>">
                 </div>
               </div>
               <div class="form-group">
@@ -73,11 +73,6 @@
               <div class="form-group">
                 <label for="unit">Unit</label>
                 <div class="form-group1">
-                  <!-- <select name="unit" id="unit" class="form-control">
-                    <?php foreach ($dataunit as $unit): ?>
-                    <option value="<?=$unit->id_unit; ?>" <?=($item->id_unit == $unit->id_unit) ? 'selected' : ''?>><?=$unit->nama_unit; ?></option>
-                    <?php endforeach;?>
-                  </select> -->
                   <input type="text"  name="unit" class="form-control" id="unit" placeholder="Unit" value="<?=$item->unit; ?>">
                 </div>
               </div>

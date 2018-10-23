@@ -41,27 +41,40 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php $i = 0; foreach ($data as $item): $i++;?>
+                <?php $i = 1; foreach ($dataarrival_array as $dataarrival):?>
                 
                 <tr>
-                  <td><?=$i; ?></td>
-                  <td><?=$item->nama_klinik; ?></td>  
-                  <td><?=$item->nama_delivery; ?></td> 
+                  <td><?=$i++; ?>.</td>
+                  <td><?=$dataarrival['parent_array']->nama_klinik; ?></td>  
+                  <td><?=$dataarrival['parent_array']->nama_delivery; ?></td>
                   <td>
-
+                    <ul style="padding: 0 0 0 20px;">
+                    <?php foreach ($dataarrival['child_array'] as $dataarrivalchild):?>
+                      <li><?=$dataarrivalchild->item; ?></li>
+                    <?php endforeach;?>
+                    </ul>
                   </td> 
+                  
                   <td>
-                    
+                    <ul style="padding: 0 0 0 20px;">
+                    <?php foreach ($dataarrival['child_array'] as $dataarrivalchild):?>
+                      <li><?=$dataarrivalchild->nama_unit; ?></li>
+                    <?php endforeach;?>
+                    </ul>
                   </td>
                   <td>
-                    
+                    <ul style="padding: 0 0 0 20px;">
+                    <?php foreach ($dataarrival['child_array'] as $dataarrivalchild):?>
+                      <li><?=$dataarrivalchild->qty; ?></li>
+                    <?php endforeach;?>
+                    </ul>
                   </td> 
-                  <td><?=$item->tgl_arrival; ?></td> 
+                  <td><?=$dataarrival['parent_array']->tgl_arrival; ?></td>
                   <td>
                     <div class="btn-group">
-                      <a type="button" href="<?php echo base_url('dataarrival/edit/'.$item->id_arrival) ?>" class="btn btn-default" title="Edit"><i class="fa fa-edit"></i></a>
-                      <a type="button" data-toggle="modal" data-target="#modal-default<?=$item->id_arrival; ?>" class="btn btn-default" title="Delete"><i class="fa fa-trash"></i></a>
-                      <div class="modal fade" id="modal-default<?=$item->id_arrival; ?>">
+                      <a type="button" href="<?php echo base_url('dataarrival/edit/'.$dataarrival['parent_array']->id_arrival) ?>" class="btn btn-default" title="Edit"><i class="fa fa-edit"></i></a>
+                      <a type="button" data-toggle="modal" data-target="#modal-default<?=$dataarrival['parent_array']->id_arrival; ?>" class="btn btn-default" title="Delete"><i class="fa fa-trash"></i></a>
+                      <div class="modal fade" id="modal-default<?=$dataarrival['parent_array']->id_arrival; ?>">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -74,7 +87,7 @@
                             </div>
                             <div class="modal-footer">
                               <a type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</a>
-                              <a href="<?php echo base_url('dataarrival/delete/'.$item->id_arrival) ?>" type="button" class="btn btn-primary">Hapus</a>
+                              <a href="<?php echo base_url('dataarrival/delete/'.$dataarrival['parent_array']->id_arrival) ?>" type="button" class="btn btn-primary">Hapus</a>
                             </div>
                           </div>
                           <!-- /.modal-content -->

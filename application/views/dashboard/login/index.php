@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Admin Login | Aplikasi Pelabuhan</title>
+  <title>Admin Login | Aplikasi EAP Delivery</title>
   <link rel="shortcut icon" href="<?=base_url();?>assets/favicon.ico" type="image/x-icon">
   <link rel="icon" href="<?=base_url();?>assets/favicon.ico" type="image/x-icon">
   <!-- Tell the browser to be responsive to screen width -->

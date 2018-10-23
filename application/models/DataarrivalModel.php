@@ -9,9 +9,15 @@ class DataarrivalModel extends CI_Model{
         $this->db->from('data_arrival a');
         $this->db->join('data_klinik b','b.id_klinik=a.id_klinik', 'left');
         $this->db->join('data_delivery c','c.id_delivery=a.id_delivery', 'left');
-        // $this->db->join('data_arrival_detail d','d.id_arrival=a.id_arrival', 'left');
-        // $this->db->join('data_unit e','e.id_unit=d.id_unit', 'right');
-        $this->db->order_by('id_arrival', 'DESC');
+        $this->db->order_by('a.id_arrival', 'DESC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_itemdetail($id){
+        $this->db->select('*');
+        $this->db->from('data_arrival_detail a');
+        $this->db->join('data_unit b','b.id_unit=a.id_unit', 'left');
+        $this->db->where('a.id_arrival', $id);
         $query = $this->db->get();
         return $query->result();
     }
