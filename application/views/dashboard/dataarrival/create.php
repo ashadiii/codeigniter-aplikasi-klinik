@@ -69,13 +69,13 @@
                 <div class="form-group">
                   <label for="item">Item</label>
                   <div class="form-group1">
-                  <input type="text"  name="item[0]" class="form-control" id="item" placeholder="Item" required>
+                  <input type="text"  name="item[]" class="form-control" id="item" placeholder="Item" required>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="unit">Unit</label>
                   <div class="form-group1">
-                    <select name="unit[0]" id="unit" class="form-control" required>
+                    <select name="unit[]" id="unit" class="form-control" required>
                       <?php foreach ($dataunit as $unit): ?>
                       <option value="<?=$unit->id_unit; ?>"><?=$unit->nama_unit; ?></option>
                       <?php endforeach;?>
@@ -85,12 +85,12 @@
                 <div class="form-group">
                   <label for="qty">Qty</label>
                   <div class="form-group1">
-                  <input type="text"  name="qty[0]" class="form-control" id="qty" placeholder="Qty" required>
+                  <input type="text"  name="qty[]" class="form-control" id="qty" placeholder="Qty" required>
                   </div>
                 </div>
               </div>
-              <div id="loading" style="display: none;">loading</div>
               <div id="addItem"></div>
+              <div id="loading" style="display: none;"><img width="50px" src="<?=base_url();?>assets/img/loader.gif" />loading</div>
 
               <div class="form-group">
                 <button type="submit" name="submit" class="btn btn-info">Save</button>
@@ -121,27 +121,37 @@
       });
       
     });
-    function bttn_remove() {
-        var scntDiv = $('#addItem');
-        var last = $('#addItem .toclone').length;  
-        $('#addItem #field_'+last+'').remove();
+    function bttn_remove(last) {
         
+        var cloneLength = 1 + $('#addItem .toclone').length;
+        $('#addItem #field_'+last+'').remove();
+        if (last < cloneLength)
+        {  
+          var noLast;
+          for (noLast = last + 1; noLast <= cloneLength; noLast++) { 
+            var noLastCurrent = noLast - 1;
+            $('#addItem #field_'+noLast+'').attr('id','field_'+noLastCurrent+'');
+            $('#itemNo'+noLast+'').attr('id','itemNo'+noLastCurrent+'').html('Item '+[noLastCurrent]+'');
+            $('#changeIdButton'+noLast+'').attr('id','changeIdButton'+noLastCurrent+'').html('<button type="button" onclick="bttn_remove('+noLastCurrent+')" class="btn btn-danger"><i class="ti-minus"></i> Remove Item</button>');
+          }
+        }
         return false;
       }
       function bttn_adding() {
-        
-
+        $('#loading').show();
         $.ajax({
           url: "<?php echo base_url('dataarrival/getunit');?>",
           beforeFilter: function(){
             $('#loading').show();
           },
           success: function(html){
-            var scntDiv = $('#addItem'); 
-            var i = 1 + $('#addItem .toclone').length;   
+            var scntDiv = $('#addItem');
+            var i = 1 + $('#addItem .toclone').length;
             var itemNo = i + 1;
+            setTimeout(function () {
             $('#loading').hide();
-            $('<div id="field_'+i+'" class="toclone"><div class="form-group"><h4>Item '+itemNo+'</h4></div><div class="form-group"><label for="item">Item</label><div class="form-group1"><input type="text"  name="item['+i+']" class="form-control" id="item" placeholder="Item" required></div></div><div class="form-group"><label for="unit">Unit</label><div class="form-group1"><select name="unit['+i+']" id="unit" class="form-control" required>'+html+'</select></div></div><div class="form-group"><label for="qty">Qty</label><div class="form-group1"><input type="text"  name="qty['+i+']" class="form-control" id="qty" placeholder="Qty" required></div></div><div class="form-group"><button type="button" onclick="bttn_remove()" class="btn btn-danger"><i class="ti-minus"></i> Remove Item</button></div></div>').appendTo(scntDiv); 
+            $('<div id="field_'+itemNo+'" class="toclone"><div class="form-group"><h4 id="itemNo'+itemNo+'">Item '+itemNo+'</h4></div><div class="form-group"><label for="item">Item</label><div class="form-group1"><input type="text"  name="item[]" class="form-control" id="item" placeholder="Item" required></div></div><div class="form-group"><label for="unit">Unit</label><div class="form-group1"><select name="unit[]" id="unit" class="form-control" required>'+html+'</select></div></div><div class="form-group"><label for="qty">Qty</label><div class="form-group1"><input type="text"  name="qty[]" class="form-control" id="qty" placeholder="Qty" required></div></div><div class="form-group" id="changeIdButton'+itemNo+'"><button type="button" onclick="bttn_remove('+itemNo+')" class="btn btn-danger"><i class="ti-minus"></i> Remove Item</button></div></div>').appendTo(scntDiv);
+            }, 500);
             i++;
           }
         });
