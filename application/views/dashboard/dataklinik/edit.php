@@ -19,7 +19,7 @@
       <div id="notifications"></div>  
       
       <?php foreach($data as $item){ ?>
-      <form class="form-horizontal" method="post" action="<?php echo base_url('dataklinik/update/'.$item->id_klinik);?>" enctype="multipart/form-data">
+      <form class="form-horizontal" onsubmit="bttn_submit()" method="post" action="<?php echo base_url('dataklinik/update/'.$item->id_klinik);?>" enctype="multipart/form-data">
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
@@ -38,12 +38,12 @@
               <div class="form-group">
                 <label for="nama_klinik">Nama Klinik</label>
                 <div class="form-group1">
-                <input type="text"  name="nama_klinik" class="form-control" id="nama_klinik" placeholder="Nama Klinik" value="<?php echo $item->nama_klinik; ?>">
+                <input type="text"  name="nama_klinik" class="form-control" id="nama_klinik" placeholder="Nama Klinik" value="<?php echo $item->nama_klinik; ?>" required="required">
                 </div>
               </div>
               
               <div class="form-group">
-                <button type="submit" name="submit" class="btn btn-info">Save</button>
+                <button type="submit" name="submit" class="btn btn-info" id="submitItemButton">Save</button>
               </div>
             </div>            
                             
@@ -61,3 +61,8 @@
 </section>
 <!-- /.content -->
 </div>
+<script type="text/javascript">
+  function bttn_submit() {
+    $('#submitItemButton').attr('disabled', 'disabled');
+  }
+</script>

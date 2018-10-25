@@ -29,7 +29,7 @@ class Dataarrival extends CI_Controller {
    {
       // $data['data'] = $this->DataarrivalModel->get_item();
       $data['page'] = 'list';
-      $data['title'] = 'Data Arrival Estimated';
+      $data['title'] = 'Estimated Compounding Plan';
 
       $dataarrival_array = array();
       $dataarrival = $this->DataarrivalModel->get_item();
@@ -59,7 +59,7 @@ class Dataarrival extends CI_Controller {
       $data['datadelivery'] = $this->DataarrivalModel->get_datadelivery();
       $data['dataunit'] = $this->DataarrivalModel->get_dataunit();
       $data['page'] = 'create';
-      $data['title'] = 'Tambah Data Arrival Estimated';
+      $data['title'] = 'Tambah Estimated Compounding Plan';
 
 
       $this->load->view('dashboard/header', $data); 
@@ -121,7 +121,7 @@ class Dataarrival extends CI_Controller {
                 <h4><i class="icon fa fa-check"></i> Success!</h4>
                 Data Berhasil Di Input.
               </div>'); 
-           helper_log("add", "Melakukan Input Data Lahan"); 
+           // helper_log("add", "Melakukan Input Data Lahan"); 
            redirect(base_url('dataarrival'));
         }
     }
@@ -160,27 +160,56 @@ class Dataarrival extends CI_Controller {
       *
       * @return Response
      */
-     public function update($id)
+     public function update($idarrival)
      {
-          $this->form_validation->set_rules('id_klinik', 'Nama Klinik', 'required');
-          $this->form_validation->set_rules('delivery_from', 'Delivery From', 'required');
-          $this->form_validation->set_rules('item', 'Item', 'required');
-          $this->form_validation->set_rules('unit', 'Unit', 'required');
-          $this->form_validation->set_rules('qty', 'Qty', 'required');
-          $this->form_validation->set_rules('date_arrival', 'Arrival Estimated', 'required');
+        $item = $this->input->post('item');
+        if(!empty($item))
+        {
+          foreach($item as $id => $value)
+          {
+            $this->form_validation->set_rules('item['.$id.']', 'Item', 'required');
+            $this->form_validation->set_rules('unit['.$id.']', 'Unit', 'required');
+            $this->form_validation->set_rules('qty['.$id.']', 'Qty', 'required');
+          }
+        }
+        $this->form_validation->set_rules('id_klinik', 'Nama Klinik', 'required');
+        $this->form_validation->set_rules('delivery_from', 'Delivery From', 'required');
+        $this->form_validation->set_rules('date_arrival', 'Arrival Estimated', 'required');
 
           if ($this->form_validation->run() == FALSE){
               $this->session->set_flashdata('errors', validation_errors());
-              redirect(base_url('dataarrival/edit/'.$id));
+              redirect(base_url('dataarrival/edit/'.$idarrival));
           }else{ 
-            $this->DataarrivalModel->update_item($id);
+            $data = array(
+              'id_klinik' => $this->input->post('id_klinik'),
+              'id_delivery' => $this->input->post('delivery_from'),
+              'tgl_arrival' => $this->input->post('date_arrival')
+            );
+            $id_arrival = $this->DataarrivalModel->update_item($idarrival,$data);
+            $delete_arrival_detail = $this->DataarrivalModel->delete_item_arrival_detail($idarrival);
+
+            if(!empty($item))
+            {
+              foreach($item as $id => $value)
+              {
+                $dataDetail[$id] = array(
+                  'id_arrival' => $idarrival,
+                  'item' => $this->input->post('item['.$id.']'),
+                  'id_unit' => $this->input->post('unit['.$id.']'),
+                  'qty' => $this->input->post('qty['.$id.']')
+                );
+                $arrivalDetail[$id] = $this->DataarrivalModel->insert_item('data_arrival_detail',$dataDetail[$id]);
+              }
+            }
+
+            // $this->DataarrivalModel->update_item($id);
             $this->session->set_flashdata('msg', 
               '<div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   <h4><i class="icon fa fa-check"></i> Success!</h4>
-                  Data ID : '.$id.' Berhasil Di Edit.
+                  Data ID : '.$idarrival.' Berhasil Di Edit.
                 </div>'); 
-            helper_log("edit", "Melakukan Edit Data Lahan ID : ".$id.""); 
+            // helper_log("edit", "Melakukan Edit Data Lahan ID : ".$id.""); 
             redirect(base_url('dataarrival'));
           }
      }
@@ -193,13 +222,14 @@ class Dataarrival extends CI_Controller {
      public function delete($id)
      {
          $item = $this->DataarrivalModel->delete_item($id);
+         $delete_arrival_detail = $this->DataarrivalModel->delete_item_arrival_detail($id);
          $this->session->set_flashdata('msg', 
               '<div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   <h4><i class="icon fa fa-check"></i> Success!</h4>
                   Data ID : '.$id.' Berhasil Di Hapus.
                 </div>'); 
-         helper_log("delete", "Melakukan Delete Data Lahan ID : ".$id.""); 
+         // helper_log("delete", "Melakukan Delete Data Lahan ID : ".$id.""); 
          redirect(base_url('dataarrival'));
      }
 

@@ -22,7 +22,7 @@
           <div class="box">
             <div id="notifications"><?php echo $this->session->flashdata('msg'); ?></div>  
             <div class="box-add-lahan">
-              <a href="<?php echo base_url('dataarrival/create') ?>"><i class="fa fa-fw fa-plus"></i> <span>Tambah Data Arrival Estimated</span></a>
+              <a href="<?php echo base_url('dataarrival/create') ?>"><i class="fa fa-fw fa-plus"></i> <span>Tambah Estimated Compounding Plan</span></a>
             </div>
             
             <!-- /.box-header -->
@@ -32,11 +32,11 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Klinik</th>
-                  <th>Delivery From</th>
+                  <th>From</th>
                   <th>Item</th>
                   <th>Unit</th>
                   <th>Qty</th>
-                  <th>Arrival Estimated</th>
+                  <th>Date</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -104,11 +104,11 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Klinik</th>
-                  <th>Delivery From</th>
+                  <th>From</th>
                   <th>Item</th>
                   <th>Unit</th>
                   <th>Qty</th>
-                  <th>Arrival Estimated</th>
+                  <th>Date</th>
                   <th>Action</th>
                 </tr>
                 </tfoot>

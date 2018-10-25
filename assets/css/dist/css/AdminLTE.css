@@ -246,6 +246,10 @@ a:focus {
     color: inherit;
     border: 0;
   }
+  .main-header .sidebar-toggle
+  {
+    display: block;
+  }
 }
 .main-header .sidebar-toggle {
   float: left;
@@ -253,6 +257,7 @@ a:focus {
   background-image: none;
   padding: 15px 15px;
   font-family: fontAwesome;
+  display: none;
 }
 .main-header .sidebar-toggle:before {
   content: "\f0c9";

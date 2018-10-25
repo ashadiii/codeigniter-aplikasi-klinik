@@ -29,7 +29,7 @@
         </li>
         <li <?php if($this->uri->segment(1)=="datadeliveryfrom"){echo 'class="active"';}?>>
           <a href="<?php echo base_url('datadeliveryfrom') ?>">
-            <i class="fa fa-ship"></i> <span>Data Delivery From</span>
+            <i class="fa fa-ship"></i> <span>Compounding From</span>
           </a>
         </li>
         <li <?php if($this->uri->segment(1)=="dataunit"){echo 'class="active"';}?>>
@@ -39,7 +39,7 @@
         </li>
         <li <?php if($this->uri->segment(1)=="dataarrival"){echo 'class="active"';}?>>
           <a href="<?php echo base_url('dataarrival') ?>">
-            <i class="fa fa-calendar-plus-o"></i> <span>Estimasi Kedatangan FG EAP</span>
+            <i class="fa fa-calendar-plus-o"></i> <span>Estimated Compounding Plan</span>
           </a>
         </li>
         <?php endif; ?>

@@ -19,18 +19,16 @@
       <div id="notifications"></div>  
       
       <?php foreach($dataarrival_array as $dataarrival){ ?>
-      <form class="form-horizontal" method="post" action="<?php echo base_url('dataarrival/update/'.$dataarrival['parent_array']->id_arrival);?>" enctype="multipart/form-data">
+      <form class="form-horizontal" onsubmit="bttn_submit()" method="post" action="<?php echo base_url('dataarrival/update/'.$dataarrival['parent_array']->id_arrival);?>" enctype="multipart/form-data">
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
           <?php
-
-              if ($this->session->flashdata('errors')){
-                  echo '<div class="alert alert-danger">';
-                  echo $this->session->flashdata('errors');
-                  echo "</div>";
-              }
-
+            if ($this->session->flashdata('errors')){
+                echo '<div class="alert alert-danger">';
+                echo $this->session->flashdata('errors');
+                echo "</div>";
+            }
           ?>
 
           <div class="col-md-offset-3 col-md-6">   
@@ -46,7 +44,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="delivery_from">Delivery From</label>
+                <label for="delivery_from">From</label>
                 <div class="form-group1">
                   <select name="delivery_from" id="delivery_from" class="form-control">
                     <?php foreach ($datadelivery as $delivery): ?>
@@ -56,7 +54,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="date_arrival">Arrival Estimated</label>
+                <label for="date_arrival">Date</label>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
@@ -88,7 +86,7 @@
                   <div class="form-group">
                     <label for="qty">Qty</label>
                     <div class="form-group1">
-                    <input type="text"  name="qty[]" class="form-control" id="qty" placeholder="Qty" value="<?=$dataarrivalchild->qty; ?>" required>
+                    <input type="number"  name="qty[]" class="form-control" id="qty" placeholder="Qty" value="<?=$dataarrivalchild->qty; ?>" required>
                     </div>
                   </div>
                   <div class="form-group" id="changeIdButton<?=$i; ?>">
@@ -100,8 +98,8 @@
               <div id="loading" style="display: none;"><img width="50px" src="<?=base_url();?>assets/img/loader.gif" />loading</div>
               
               <div class="form-group">
-                <button type="submit" name="submit" class="btn btn-info">Save</button>
-                <button type="button" onclick="bttn_adding()" class="btn btn-info"><i class="ti-plus"></i> Tambah Item</button>
+                <button type="submit" name="submit" class="btn btn-info" id="submitItemButton">Save</button>
+                <button type="button" onclick="bttn_adding()" class="btn btn-info" id="addItemButton"><i class="ti-plus"></i> Tambah Item</button>
               </div>
             </div>            
                             
@@ -128,7 +126,10 @@
         format: 'dd MM, yyyy'
       });
     });
-
+    function bttn_submit() {
+      $('#submitItemButton').attr('disabled', 'disabled');
+      $('#addItemButton').attr('disabled', 'disabled');
+    }
     function bttn_remove(last) {
       var cloneLength = 1 + $('#addItem .toclone').length;
       $('#addItem #field_'+last+'').remove();
@@ -149,6 +150,7 @@
 
     function bttn_adding() {
       $('#loading').show();
+      $('#addItemButton').attr('disabled', 'disabled');
       $.ajax({
         url: "<?php echo base_url('dataarrival/getunit');?>",
         beforeFilter: function(){
@@ -161,7 +163,8 @@
           
           setTimeout(function () {
           $('#loading').hide();
-          $('<div id="field_'+itemNo+'" class="toclone"><div class="form-group"><h4 id="itemNo'+itemNo+'">Item '+itemNo+'</h4></div><div class="form-group"><label for="item">Item</label><div class="form-group1"><input type="text"  name="item[]" class="form-control" id="item" placeholder="Item" required></div></div><div class="form-group"><label for="unit">Unit</label><div class="form-group1"><select name="unit[]" id="unit" class="form-control" required>'+html+'</select></div></div><div class="form-group"><label for="qty">Qty</label><div class="form-group1"><input type="text"  name="qty[]" class="form-control" id="qty" placeholder="Qty" required></div></div><div class="form-group" id="changeIdButton'+itemNo+'"><button type="button" onclick="bttn_remove('+itemNo+')" class="btn btn-danger"><i class="ti-minus"></i> Remove Item</button></div></div>').appendTo(scntDiv);
+          $('#addItemButton').removeAttr('disabled', 'disabled');
+          $('<div id="field_'+itemNo+'" class="toclone"><div class="form-group"><h4 id="itemNo'+itemNo+'">Item '+itemNo+'</h4></div><div class="form-group"><label for="item">Item</label><div class="form-group1"><input type="text"  name="item[]" class="form-control" id="item" placeholder="Item" required></div></div><div class="form-group"><label for="unit">Unit</label><div class="form-group1"><select name="unit[]" id="unit" class="form-control" required>'+html+'</select></div></div><div class="form-group"><label for="qty">Qty</label><div class="form-group1"><input type="number"  name="qty[]" class="form-control" id="qty" placeholder="Qty" required></div></div><div class="form-group" id="changeIdButton'+itemNo+'"><button type="button" onclick="bttn_remove('+itemNo+')" class="btn btn-danger"><i class="ti-minus"></i> Remove Item</button></div></div>').appendTo(scntDiv);
             }, 500);
           i++;
          

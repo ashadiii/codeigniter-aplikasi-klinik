@@ -7,7 +7,7 @@
     <section class="content-header">
       <h1>
         Dashboard
-        <small>Aplikasi Estimasi</small>
+        <!-- <small>Aplikasi Estimasi</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -25,12 +25,12 @@
            
             <div class="box-header with-border">
               <h3 class="box-title">
-                <?=$title?> Klinik 
-                <b>
+                <?=$title?>  
+                <b>(
                   <?php foreach ($klinik as $klinikItem):
                     echo $klinikItem->nama_klinik;
                   endforeach;?>
-                </b>
+                )</b>
               </h3>
             </div>
             <!-- /.box-header -->
@@ -40,7 +40,7 @@
                   <tr>
                     <th style="width: 10px">#</th>
                     <!-- <th>Nama Klinik</th> -->
-                    <th>Delivery From</th>
+                    <th>From</th>
                     <th>Item</th>
                     <th>Unit</th>
                     <th>Qty</th>
